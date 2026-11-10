@@ -2,11 +2,10 @@ services:
   app:
     build: .
     container_name: reparbre2-app
+    env_file:
+      - .env
     environment:
       - DATA_DIR=/app/data
-      - ORIGIN=https://reparbre2.laurans.org
-      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
-      - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
     volumes:
       - ./data:/app/data
     restart: unless-stopped
