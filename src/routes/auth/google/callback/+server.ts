@@ -73,6 +73,8 @@ export const GET: RequestHandler = async ({ cookies, url }) => {
 
 		redirect(302, '/');
 	} catch (e) {
+		// Les redirections SvelteKit sont des exceptions : il faut les re-lever
+		if (e && typeof e === 'object' && 'status' in e && 'location' in e) throw e;
 		console.error('Erreur OAuth:', e);
 		return new Response('Erreur lors de la connexion', { status: 500 });
 	}
