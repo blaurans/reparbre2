@@ -1,5 +1,6 @@
 import type { Actions, PageServerLoad } from './$types';
 import { fail, redirect } from '@sveltejs/kit';
+import { eq } from 'drizzle-orm';
 import { db } from '$lib/server/db';
 import {
 	getArbreDeLaSemaine,
@@ -10,7 +11,6 @@ import {
 	pointsPourDuree
 } from '$lib/server/game';
 import { hugs } from '$lib/server/db/schema';
-import { and, eq } from 'drizzle-orm';
 
 export const load: PageServerLoad = async ({ locals }) => {
 	if (!locals.user) redirect(302, '/login');
@@ -19,6 +19,7 @@ export const load: PageServerLoad = async ({ locals }) => {
 };
 
 export const actions: Actions = {
+	/** Démarre un câlin : vérifie le GPS et crée la ligne en base */
 	commencer: async ({ request, locals }) => {
 		if (!locals.user) return fail(401, { erreur: 'Non connecté' });
 
@@ -54,6 +55,7 @@ export const actions: Actions = {
 		return { succes: true, hugId };
 	},
 
+	/** Termine un câlin : vérifie la durée minimale et calcule les points */
 	terminer: async ({ request, locals }) => {
 		if (!locals.user) return fail(401, { erreur: 'Non connecté' });
 
