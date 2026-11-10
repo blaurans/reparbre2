@@ -9,7 +9,7 @@
 	let lng = $state('');
 	let adresse = $state('');
 	let description = $state('');
-	let photoUrl = $state('');
+	let photoFile = $state<File | null>(null);
 
 	function resetForm() {
 		nom = '';
@@ -18,7 +18,7 @@
 		lng = '';
 		adresse = '';
 		description = '';
-		photoUrl = '';
+		photoFile = null;
 	}
 </script>
 
@@ -63,7 +63,13 @@
 	<!-- Ajouter un arbre -->
 	<section class="rounded-2xl bg-foret-900 p-5">
 		<h2 class="font-semibold text-foret-100">Ajouter un arbre</h2>
-		<form method="POST" action="?/creer" use:enhance class="mt-4 space-y-3">
+		<form
+			method="POST"
+			action="?/creer"
+			enctype="multipart/form-data"
+			use:enhance
+			class="mt-4 space-y-3"
+		>
 			<input
 				type="text"
 				name="name"
@@ -107,13 +113,18 @@
 				placeholder="Adresse (facultatif)"
 				class="w-full rounded-xl bg-foret-800 px-4 py-3 text-foret-100 placeholder-foret-400 outline-none focus:ring-2 focus:ring-foret-500"
 			/>
-			<textarea
-				name="description"
-				bind:value={description}
-				placeholder="Description (facultatif)"
-				rows="3"
-				class="w-full rounded-xl bg-foret-800 px-4 py-3 text-foret-100 placeholder-foret-400 outline-none focus:ring-2 focus:ring-foret-500"
-			></textarea>
+			<div>
+				<label for="photo" class="mb-1 block text-xs text-foret-300">
+					Photo (JPG, PNG ou WebP — 5 Mo max)
+				</label>
+				<input
+					id="photo"
+					type="file"
+					name="photo"
+					accept="image/jpeg,image/png,image/webp"
+					class="w-full rounded-xl bg-foret-800 px-4 py-3 text-foret-100 file:mr-3 file:rounded-lg file:border-0 file:bg-foret-700 file:px-3 file:py-1.5 file:text-foret-100"
+				/>
+			</div>
 			<button
 				type="submit"
 				class="w-full rounded-xl bg-foret-500 py-3 font-semibold text-foret-950 transition hover:bg-foret-400"
@@ -128,6 +139,13 @@
 		<h2 class="font-semibold text-foret-100">Les arbres</h2>
 		{#each data.arbres as arbre (arbre.id)}
 			<div class="rounded-2xl bg-foret-900 p-4">
+				{#if arbre.photoUrl}
+					<img
+						src={arbre.photoUrl}
+						alt="Photo de {arbre.name}"
+						class="mb-3 h-40 w-full rounded-xl object-cover"
+					/>
+				{/if}
 				<p class="font-medium text-foret-100">{arbre.name}</p>
 				<p class="text-xs text-foret-400">
 					{arbre.species}
