@@ -10,6 +10,8 @@
 		{ href: '/intentions', label: 'Intentions' },
 		{ href: '/profil', label: 'Profil' }
 	];
+
+	const montreAdmin = $derived(data.estAdmin === true);
 </script>
 
 <div class="mx-auto flex min-h-screen max-w-md flex-col">
@@ -58,5 +60,15 @@
 				{lien.label}
 			</a>
 		{/each}
+		{#if montreAdmin}
+			<a
+				href="/admin"
+				class="rounded-lg px-3 py-2 text-sm transition-colors {page.url.pathname === '/admin'
+					? 'bg-foret-800 font-semibold text-foret-100'
+					: 'text-foret-300 hover:text-foret-100'}"
+			>
+				Admin
+			</a>
+		{/if}
 	</nav>
 </div>
