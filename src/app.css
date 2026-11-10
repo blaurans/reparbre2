@@ -1,0 +1,26 @@
+@import 'tailwindcss';
+
+@theme {
+	--color-foret-950: #0d1a0f;
+	--color-foret-900: #142417;
+	--color-foret-800: #1d3320;
+	--color-foret-700: #2a4a2e;
+	--color-foret-600: #3d6b42;
+	--color-foret-500: #52905a;
+	--color-foret-400: #74b479;
+	--color-foret-300: #a3d1a8;
+	--color-foret-200: #cfe6d2;
+	--color-foret-100: #e8f3e9;
+
+	--color-creme: #f7f4ec;
+	--color-bois: #8b6f47;
+	--color-soleil: #e8b04b;
+}
+
+body {
+	background: var(--color-foret-950);
+	color: var(--color-creme);
+	font-family:
+		ui-rounded, 'SF Pro Rounded', system-ui, -apple-system, sans-serif;
+	min-height: 100vh;
+}
