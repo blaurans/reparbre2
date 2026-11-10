@@ -23,7 +23,7 @@ export const GET: RequestHandler = async ({ cookies }) => {
 	});
 
 	const google = getGoogleClient();
-	const url = google.createAuthorizationURL(state, challenge, [
+	const url = google.createAuthorizationURL(state, verifier, [
 		'openid',
 		'email',
 		'profile'
